@@ -1,2 +1,20 @@
 ---
-# tasks file for roles/docker-compose
+- name: Ensure curl is installed
+  apt: name="curl"
+  when: not ansible_unit_test
+
+- name: Create Install Directory
+  file: path="{{ prefix_dir }}{{ docker_compose_bin }}" state=directory recurse=yes
+
+- name: Check docker-compose file
+  stat: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
+  register: st
+
+- name: Install Docker Compose
+  get_url: >
+    url="{{ docker_compose_release_url }}"
+    dest="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
+
+- name: File permission
+  file: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose" mode="755"
+  always_run: yes
