@@ -1,38 +1,43 @@
-Role Name
-=========
+[![Build Status](https://travis-ci.org/tumf/ansible-role-docker-compose.svg?branch=master)](https://travis-ci.org/tumf/ansible-role-docker-compose)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-systemd--docker_service-blue.svg)](https://galaxy.ansible.com/list#/roles/6754)
 
-A brief description of the role goes here.
+ansible-role-docker-compose
+===========================
+
+Install Docker Compose Ansible Role
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+|name|type|default|description
+|----|----|-------|-----------
+|ansible_unit_test|boolean|false|unit testing?
+|prefix_dir|string|""|prefix directory for testing
+|docker_compose_arch|string|"Linux-x86_64"|
+|docker_compose_version|string|"1.5.2"|
+|docker_compose_release_url|string|"https://github.com/docker/compose/releases/download/1.5.2/docker-compose-Linux-x86_64"|
+|docker_compose_bin|string|"/usr/local/bin"|install path
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - servers
+      connection: local
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: tumf.docker-compose
+        docker_compose_version: 1.5.2
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+> @tumf
