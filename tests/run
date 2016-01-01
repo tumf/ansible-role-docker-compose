@@ -4,13 +4,13 @@ usage_exit() {
         echo "Usage: $0 [-w] name" 1>&2
         exit 1
 }
+outputs="outputs"
 
-check="-C"
 while getopts wh option
 do
     case $option in
         w)
-            check=""
+            outputs="cases"
             ;;
         h)
             usage_exit
@@ -20,7 +20,8 @@ done
 
 shift $((OPTIND - 1))
 
-mkdir -p tests/cases
+rm -rf tests/${outputs}
+mkdir -p tests/cases tests/${outputs}
 cases=$(ls tests/cases)
 if [ ! -z $1 ];then
     cases=$1
@@ -29,15 +30,15 @@ errors=0
 
 for case in $cases
 do
-    out=$(ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D $check -e prefix_dir="cases/${case}" -e ansible_unit_test=true)
+    out=$(ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true)
     result=$?
-    if echo $out|tail -n 1 |grep -E "changed=0\s+unreachable=0\s+failed=0" >/dev/null
-    then
+
+    if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
         echo -n "."
     else
         echo $case
         echo
-        echo "$out"
+        diff -uNr tests/cases/${case} tests/${outputs}/${case}
         errors=$(( errors+1 ))
     fi
 done

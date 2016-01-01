@@ -1,8 +1,4 @@
 ---
-- name: Ensure curl is installed
-  apt: name="curl"
-  when: not ansible_unit_test
-
 - name: Create Install Directory
   file: path="{{ prefix_dir }}{{ docker_compose_bin }}" state=directory recurse=yes
 
@@ -17,4 +13,3 @@
 
 - name: File permission
   file: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose" mode="755"
-  always_run: yes

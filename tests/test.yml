@@ -4,6 +4,6 @@
   tags:
     - mini
   vars:
-    docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/428449ae1bc967cae24fe9bf2eecc5b480ab8a79/docker-compose
+    docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/docker-compose
   roles:
     - role: ../..
