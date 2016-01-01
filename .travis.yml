@@ -1,4 +1,3 @@
----
 language: python
 python:
 - '2.7'
@@ -9,3 +8,6 @@ before_script:
 - ansible-playbook --syntax-check ./tests/test.yml -i ./tests/hosts
 script:
 - ./tests/run
+notifications:
+  slack:
+    secure: jNrkF8fA44Q0x4d5VkwVgbDN+d3huzJFPoD/jWMPWiHqOrSR1WFeEhGm2wabik0BgHTi4TwmO7CKQn1SPEEGRkO38fxB6li/vpS/RloRFVbtRx4TumKX+U7FdLI3NufggbzeFCyQfZ4uBCHTsG1IA+2i7QVmWzTo6XZyMaletQEAFHjJsI1++QClE93LJTdsOqkhzSv5Mv2IjVwWfnpjsOVhYyxWTvj/+btweeFkiK/sIcw37ixSbid+P2R74hGK31B1JZN60omkZP8/BID8UXlkz/n/Vgb1ti1fJdfAVXfhDP0mlknZQE8cFSIzJVZ27uvl0s5T96emQ6ggbO0vTKuQBIfbfhupxCl+2Ef6CRGme7NSI//1QnqwHbmM1SfGcvy48C/5xgmkPI8kG7L2PLByc0Pj0DkBHA5DEx5uBUb2k6+dXK1v6nV3Cbx6WLtv0nYN7xHXpVsQMP0vCw0/qbaW9qrPlyL0Bcn2Y7nNyuR2wOtgcVBM5LG8quKoPZl2JTnUelrRxFmfmxnGqcx0qSzHVF9/W7wDDC8wbFXwlkPbHUbfDt1cyBqq6BGsTgqOtUtnPIII30yrUEcCwWHjWM5oPG7wFgzMnGppcz9/Ka75c03Lh6J8AWDr96VR5t5VyjUCYgl0LNPU88Ou83WcvOQrq0dOFctuOkS6Hc1W90c=
