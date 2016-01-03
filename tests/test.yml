@@ -3,7 +3,24 @@
   connection: local
   tags:
     - mini
-  vars:
-    docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/docker-compose
   roles:
     - role: ../..
+      docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/docker-compose
+
+- hosts: 127.0.0.1
+  connection: local
+  tags:
+    - ver-setup
+  roles:
+    - role: ../..
+      docker_compose_version: 1.5.1
+      docker_compose_release_url: https://gist.githubusercontent.com/tumf/5d5222dcfe7ebcffbd19/raw/docker-compose-1.5.1
+
+- hosts: 127.0.0.1
+  connection: local
+  tags:
+    - ver
+  roles:
+    - role: ../..
+      docker_compose_version: 1.5.2
+      docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/docker-compose

@@ -20,32 +20,41 @@ done
 
 shift $((OPTIND - 1))
 
-rm -rf tests/${outputs}
-mkdir -p tests/cases tests/${outputs}
 cases=$(ls tests/cases)
 if [ ! -z $1 ];then
     cases=$1
 fi
+
 errors=0
+passes=0
 
 for case in $cases
 do
-    out=$(ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true)
+    rm -rf tests/${outputs}/${case}
+done
+
+mkdir -p tests/cases tests/${outputs}
+
+for case in $cases
+do
+    echo "* Test: $case"
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true >/dev/null
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true
     result=$?
 
     if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
-        echo -n "."
+        passes=$(( passes+1 ))
+        echo "TestCase: $case OK"
     else
-        echo $case
-        echo
         diff -uNr tests/cases/${case} tests/${outputs}/${case}
         errors=$(( errors+1 ))
+        echo "TestCase: $case ERROR"
     fi
 done
 
 if [ $errors -eq 0 ]
 then
-    echo " ok"
+    echo "${passes} test case(s) passed"
 else
     echo "${errors} error(s)"
 fi
