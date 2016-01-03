@@ -1,1 +1,1 @@
-dummy file for tests.
+echo "docker-compose version 1.5.2, build 7240ff3"
