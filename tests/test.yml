@@ -3,7 +3,6 @@
   connection: local
   tags:
     - mini
-  vars:
-    docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/docker-compose
   roles:
     - role: ../..
+      docker_compose_release_url: https://gist.githubusercontent.com/tumf/1c3fc38d33d8357fd27e/raw/docker-compose
