@@ -6,10 +6,21 @@
   stat: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
   register: st
 
+- name: Check Docker Compose version
+  shell: |
+    {{ prefix_dir }}{{ docker_compose_bin }}/docker-compose --version |
+    grep "version {{ docker_compose_version }}"
+  register: ver
+  when: st.stat.exists
+  failed_when: false
+  changed_when: false
+
+- name: Remove Old Version
+  file: state=absent path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
+  when: ver|failed
+
 - name: Install Docker Compose
   get_url: >
     url="{{ docker_compose_release_url }}"
     dest="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
-
-- name: File permission
-  file: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose" mode="755"
+    mode="755"
