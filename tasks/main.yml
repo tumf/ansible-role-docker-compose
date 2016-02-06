@@ -6,6 +6,18 @@
   stat: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
   register: st
 
+- name: Get latest version info
+  uri:
+    url: https://api.github.com/repos/docker/compose/releases/latest
+    method: GET
+    return_content: yes
+  register: latest_version_info
+
+- name: Set latest version as fact
+  set_fact:
+    docker_compose_version: "{{ (latest_version_info.content|from_json).tag_name }}"
+  when: docker_compose_version == "latest"
+
 - name: Check Docker Compose version
   shell: |
     {{ prefix_dir }}{{ docker_compose_bin }}/docker-compose --version |
@@ -19,8 +31,13 @@
   file: state=absent path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
   when: ver|failed
 
+- name: Set install url as fact unless testing
+  set_fact:
+    docker_compose_install_url: "{{ docker_compose_release_url }}/{{ docker_compose_version }}/docker-compose-{{ docker_compose_arch }}"
+  when: not ansible_unit_test
+
 - name: Install Docker Compose
   get_url: >
-    url="{{ docker_compose_release_url }}"
+    url="{{ docker_compose_install_url }}"
     dest="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
     mode="755"
