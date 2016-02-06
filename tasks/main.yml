@@ -6,6 +6,9 @@
   stat: path="{{ prefix_dir }}{{ docker_compose_bin }}/docker-compose"
   register: st
 
+- name: Install httplib2 (for uri module)
+  pip: name=httplib2
+
 - name: Get latest version info
   uri:
     url: https://api.github.com/repos/docker/compose/releases/latest
