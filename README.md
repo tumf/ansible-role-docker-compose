@@ -18,8 +18,8 @@ Role Variables
 |ansible_unit_test|boolean|false|unit testing?
 |prefix_dir|string|""|prefix directory for testing
 |docker_compose_arch|string|"Linux-x86_64"|
-|docker_compose_version|string|"1.5.2"|
-|docker_compose_release_url|string|"https://github.com/docker/compose/releases/download/1.5.2/docker-compose-Linux-x86_64"|
+|docker_compose_version|string|"latest"|
+|docker_compose_release_url|string|"https://github.com/docker/compose/releases/download"|
 |docker_compose_bin|string|"/usr/local/bin"|install path
 
 
