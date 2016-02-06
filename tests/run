@@ -33,13 +33,15 @@ do
     rm -rf tests/${outputs}/${case}
 done
 
+
 mkdir -p tests/cases tests/${outputs}
 
 for case in $cases
 do
     echo "* Test: $case"
-    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true >/dev/null
-    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true
+    prefix_dir="tests/${outputs}/${case}"
+    ansible-playbook ./tests/test.yml -t $case-setup -D -e prefix_dir="${prefix_dir}"  -e ansible_unit_test=true >/dev/null
+    ansible-playbook ./tests/test.yml -t $case -D -e prefix_dir="${prefix_dir}" -e ansible_unit_test=true
     result=$?
 
     if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
