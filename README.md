@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/tumf/ansible-role-docker-compose.svg?branch=master)](https://travis-ci.org/tumf/ansible-role-docker-compose)
-[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-docker--compose-blue.svg)](https://galaxy.ansible.com/list#/roles/6754)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-docker--compose-blue.svg)](https://galaxy.ansible.com/tumf/docker-compose/)
 
 ansible-role-docker-compose
 ===========================
