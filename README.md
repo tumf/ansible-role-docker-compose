@@ -26,7 +26,7 @@ Role Variables
 Example Playbook
 ----------------
 
-    - servers
+    - Host: servers
       connection: local
       roles:
         - role: tumf.docker-compose
